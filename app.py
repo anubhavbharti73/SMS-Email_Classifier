@@ -1,1 +1,73 @@
-{"nbformat":4,"nbformat_minor":0,"metadata":{"colab":{"provenance":[],"mount_file_id":"1S7y4UXRgm5AgDQdWCNzNwEIZNsjgS1k-","authorship_tag":"ABX9TyNKrIkcHrpw7J7qNet/b+qR"},"kernelspec":{"name":"python3","display_name":"Python 3"},"language_info":{"name":"python"}},"cells":[{"cell_type":"code","source":["from google.colab import drive\n","drive.mount('/content/drive')"],"metadata":{"colab":{"base_uri":"https://localhost:8080/"},"id":"mQnVs26K1DT3","executionInfo":{"status":"ok","timestamp":1725198285527,"user_tz":-330,"elapsed":23911,"user":{"displayName":"Anubhav B","userId":"00826470903362758741"}},"outputId":"315f1175-9ff5-48e7-bdac-4b83c052aa6a"},"execution_count":1,"outputs":[{"output_type":"stream","name":"stdout","text":["Mounted at /content/drive\n"]}]},{"cell_type":"code","source":["!pip install streamlit\n","!pip install pickle"],"metadata":{"colab":{"base_uri":"https://localhost:8080/"},"collapsed":true,"id":"DmKQnuUc1pVx","executionInfo":{"status":"ok","timestamp":1725198489114,"user_tz":-330,"elapsed":5648,"user":{"displayName":"Anubhav B","userId":"00826470903362758741"}},"outputId":"7141f3ea-d6ef-4550-b869-9c25b71d3bac"},"execution_count":6,"outputs":[{"output_type":"stream","name":"stdout","text":["Requirement already satisfied: streamlit in /usr/local/lib/python3.10/dist-packages (1.38.0)\n","Requirement already satisfied: altair<6,>=4.0 in /usr/local/lib/python3.10/dist-packages (from streamlit) (4.2.2)\n","Requirement already satisfied: blinker<2,>=1.0.0 in /usr/lib/python3/dist-packages (from streamlit) (1.4)\n","Requirement already satisfied: cachetools<6,>=4.0 in /usr/local/lib/python3.10/dist-packages (from streamlit) (5.4.0)\n","Requirement already satisfied: click<9,>=7.0 in /usr/local/lib/python3.10/dist-packages (from streamlit) (8.1.7)\n","Requirement already satisfied: numpy<3,>=1.20 in /usr/local/lib/python3.10/dist-packages (from streamlit) (1.25.2)\n","Requirement already satisfied: packaging<25,>=20 in /usr/local/lib/python3.10/dist-packages (from streamlit) (24.1)\n","Requirement already satisfied: pandas<3,>=1.3.0 in /usr/local/lib/python3.10/dist-packages (from streamlit) (2.0.3)\n","Requirement already satisfied: pillow<11,>=7.1.0 in /usr/local/lib/python3.10/dist-packages (from streamlit) (9.4.0)\n","Requirement already satisfied: protobuf<6,>=3.20 in /usr/local/lib/python3.10/dist-packages (from streamlit) (3.20.3)\n","Requirement already satisfied: pyarrow>=7.0 in /usr/local/lib/python3.10/dist-packages (from streamlit) (14.0.2)\n","Requirement already satisfied: requests<3,>=2.27 in /usr/local/lib/python3.10/dist-packages (from streamlit) (2.31.0)\n","Requirement already satisfied: rich<14,>=10.14.0 in /usr/local/lib/python3.10/dist-packages (from streamlit) (13.7.1)\n","Requirement already satisfied: tenacity<9,>=8.1.0 in /usr/local/lib/python3.10/dist-packages (from streamlit) (8.5.0)\n","Requirement already satisfied: toml<2,>=0.10.1 in /usr/local/lib/python3.10/dist-packages (from streamlit) (0.10.2)\n","Requirement already satisfied: typing-extensions<5,>=4.3.0 in /usr/local/lib/python3.10/dist-packages (from streamlit) (4.12.2)\n","Requirement already satisfied: gitpython!=3.1.19,<4,>=3.0.7 in /usr/local/lib/python3.10/dist-packages (from streamlit) (3.1.43)\n","Requirement already satisfied: pydeck<1,>=0.8.0b4 in /usr/local/lib/python3.10/dist-packages (from streamlit) (0.9.1)\n","Requirement already satisfied: tornado<7,>=6.0.3 in /usr/local/lib/python3.10/dist-packages (from streamlit) (6.3.3)\n","Requirement already satisfied: watchdog<5,>=2.1.5 in /usr/local/lib/python3.10/dist-packages (from streamlit) (4.0.2)\n","Requirement already satisfied: entrypoints in /usr/local/lib/python3.10/dist-packages (from altair<6,>=4.0->streamlit) (0.4)\n","Requirement already satisfied: jinja2 in /usr/local/lib/python3.10/dist-packages (from altair<6,>=4.0->streamlit) (3.1.4)\n","Requirement already satisfied: jsonschema>=3.0 in /usr/local/lib/python3.10/dist-packages (from altair<6,>=4.0->streamlit) (4.19.2)\n","Requirement already satisfied: toolz in /usr/local/lib/python3.10/dist-packages (from altair<6,>=4.0->streamlit) (0.12.1)\n","Requirement already satisfied: gitdb<5,>=4.0.1 in /usr/local/lib/python3.10/dist-packages (from gitpython!=3.1.19,<4,>=3.0.7->streamlit) (4.0.11)\n","Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.10/dist-packages (from pandas<3,>=1.3.0->streamlit) (2.8.2)\n","Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.10/dist-packages (from pandas<3,>=1.3.0->streamlit) (2023.4)\n","Requirement already satisfied: tzdata>=2022.1 in /usr/local/lib/python3.10/dist-packages (from pandas<3,>=1.3.0->streamlit) (2024.1)\n","Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib/python3.10/dist-packages (from requests<3,>=2.27->streamlit) (3.3.2)\n","Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.10/dist-packages (from requests<3,>=2.27->streamlit) (3.7)\n","Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/local/lib/python3.10/dist-packages (from requests<3,>=2.27->streamlit) (2.0.7)\n","Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.10/dist-packages (from requests<3,>=2.27->streamlit) (2024.7.4)\n","Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.10/dist-packages (from rich<14,>=10.14.0->streamlit) (3.0.0)\n","Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.10/dist-packages (from rich<14,>=10.14.0->streamlit) (2.16.1)\n","Requirement already satisfied: smmap<6,>=3.0.1 in /usr/local/lib/python3.10/dist-packages (from gitdb<5,>=4.0.1->gitpython!=3.1.19,<4,>=3.0.7->streamlit) (5.0.1)\n","Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.10/dist-packages (from jinja2->altair<6,>=4.0->streamlit) (2.1.5)\n","Requirement already satisfied: attrs>=22.2.0 in /usr/local/lib/python3.10/dist-packages (from jsonschema>=3.0->altair<6,>=4.0->streamlit) (23.2.0)\n","Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.10/dist-packages (from jsonschema>=3.0->altair<6,>=4.0->streamlit) (2023.12.1)\n","Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.10/dist-packages (from jsonschema>=3.0->altair<6,>=4.0->streamlit) (0.35.1)\n","Requirement already satisfied: rpds-py>=0.7.1 in /usr/local/lib/python3.10/dist-packages (from jsonschema>=3.0->altair<6,>=4.0->streamlit) (0.19.0)\n","Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.10/dist-packages (from markdown-it-py>=2.2.0->rich<14,>=10.14.0->streamlit) (0.1.2)\n","Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.10/dist-packages (from python-dateutil>=2.8.2->pandas<3,>=1.3.0->streamlit) (1.16.0)\n","\u001b[31mERROR: Could not find a version that satisfies the requirement pickle (from versions: none)\u001b[0m\u001b[31m\n","\u001b[0m\u001b[31mERROR: No matching distribution found for pickle\u001b[0m\u001b[31m\n","\u001b[0m"]}]},{"cell_type":"code","execution_count":null,"metadata":{"id":"BmVRWqiQzfVB"},"outputs":[],"source":["import streamlit as st\n","import pickle\n","\n","tfidf = pickle.load(open('/content/drive/MyDrive/Colab Notebooks/vectorizer.pkl','rb'))\n","model = pickle.load(open('/content/drive/MyDrive/Colab Notebooks/model.pkl', 'rb'))\n","\n","from nltk.corpus import stopwords\n","import string\n","import nltk\n","nltk.download('punkt')\n","nltk.download('stopwords')\n","#stemming\n","from nltk.stem.porter import PorterStemmer\n","ps = PorterStemmer()\n","\n","def transform_text(text):\n","  #lowering case\n","  text = text.lower()\n","  #tokenization\n","  text = nltk.word_tokenize(text)\n","\n","  #removing special characters\n","  y=[]\n","  for i in text:\n","    if i.isalnum():\n","      y.append(i)\n","\n","  text = y[:]   #cloning\n","  y.clear()\n","\n","  #removing stopword and punctuation\n","  for i in text:\n","    if i not in stopwords.words('english') and i not in string.punctuation:\n","      y.append(i)\n","\n","  text = y[:]\n","  y.clear()\n","\n","  for i in text:\n","    y.append(ps.stem(i))\n","\n","\n","  return \" \".join(y)\n","\n","\n","st.title(\"Email/SMS Spam Classifier\")\n","\n","input_sms = st.text_area(\"Enter the message brother\")\n","# input_sms = \"Enter the message brother\"\n","\n","if st.button(\"Predict\"):\n","  #1. Preprocess the msge\n","\n","  transform_sms = transform_text(input_sms)\n","\n","  # print(\"thisa is tsms\",transform_sms)\n","  #2. Vectorize\n","\n","  vector_input = tfidf.transform([transform_sms])\n","  # print(\"this is vct: \", vector_input)\n","\n","  #3. Predict\n","\n","  result = model.predict(vector_input)[0]\n","\n","  #4. Display\n","\n","  if result ==1:\n","    st.header(\"Spam\")\n","\n","  else:\n","    st.header(\"Not Spam\")\n","\n"]},{"cell_type":"code","source":[],"metadata":{"id":"fEeOySiv9FIu"},"execution_count":null,"outputs":[]}]}
+import streamlit as st
+import pickle
+
+tfidf = pickle.load(open('/content/drive/MyDrive/Colab Notebooks/vectorizer.pkl','rb'))
+model = pickle.load(open('/content/drive/MyDrive/Colab Notebooks/model.pkl', 'rb'))
+
+from nltk.corpus import stopwords
+import string
+import nltk
+nltk.download('punkt')
+nltk.download('stopwords')
+#stemming
+from nltk.stem.porter import PorterStemmer
+ps = PorterStemmer()
+
+def transform_text(text):
+  #lowering case
+  text = text.lower()
+  #tokenization
+  text = nltk.word_tokenize(text)
+
+  #removing special characters
+  y=[]
+  for i in text:
+    if i.isalnum():
+      y.append(i)
+
+  text = y[:]   #cloning 
+  y.clear()
+
+  #removing stopword and punctuation
+  for i in text:
+    if i not in stopwords.words('english') and i not in string.punctuation:
+      y.append(i)
+
+  text = y[:]
+  y.clear()
+
+  for i in text:
+    y.append(ps.stem(i))
+
+
+  return " ".join(y)
+
+
+st.title("Email/SMS Spam Classifier")
+
+input_sms = st.text_area("Enter the message brother")
+# input_sms = "Enter the message brother"
+
+if st.button("Predict"):
+  #1. Preprocess the msge
+
+  transform_sms = transform_text(input_sms)
+
+  # print("thisa is tsms",transform_sms)
+  #2. Vectorize
+
+  vector_input = tfidf.transform([transform_sms])
+  # print("this is vct: ", vector_input)
+
+  #3. Predict
+
+  result = model.predict(vector_input)[0]
+
+  #4. Display
+
+  if result ==1:
+    st.header("Spam")
+
+  else:
+    st.header("Not Spam")
+  
