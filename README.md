@@ -1,4 +1,5 @@
 Spam Classifier for SMS and Email Messages
+
 Welcome to the Spam Classifier project! This repository contains code and resources for a machine learning model that classifies SMS and email messages as spam or not spam. The model is built using a dataset from Kaggle, cleaned and preprocessed, and evaluated using a web-based interface.
 
 Table of Contents
@@ -53,7 +54,7 @@ Access the Web Interface:
 Open your web browser and go to http://127.0.0.1:5000 to access the web interface where you can input SMS or email messages for classification.
 
 Example Input
-In the web interface, you can enter a message and click "Classify" to see whether the message is classified as spam or not spam.
+In the web interface, you can enter a message and click "Predict" to see whether the message is classified as spam or not spam.
 
 Code Explanation
 Data Cleaning: The data is preprocessed using techniques such as removing special characters, converting text to lowercase, and removing stop words.
