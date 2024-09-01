@@ -25,7 +25,7 @@ Clone the Repository:
 
 bash
 Copy code
-git clone https://github.com/yourusername/spam-classifier.git
+git clone https://github.com/anubhavbharti73/SMS-Email_Classifier
 cd spam-classifier
 Set Up a Virtual Environment:
 
