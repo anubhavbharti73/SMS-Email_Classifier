@@ -3,50 +3,33 @@ name: CI/CD Pipeline
 on:
  push:
   branches: ["main"]
- pull_request:
-  branches: ["main"]
 
 jobs:
  build-test-deploy:
   runs-on: ubuntu-latest
 
- steps:
-   - name: Checkout Code
-     uses: actions/checkout@v3
+  steps: 
+  - name: Checkout Code
+    uses: actions/checkout@v3
 
-   - name: Set up Python
-     uses: actions/setup-python@v4
-     with:
-       python-version: "3.10"
+  - name: Set up Python
+    uses: actions/setup-python@v4
+    with:
+      python-version: "3.10"
 
-   - name: Install Dependencies
-     run: |
-       python -m pip install --upgrade pip
-       pip install -r requirements.txt
-       pip install pytest
-
-   - name: Download NLTK Data
-     run: |
-       python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords')"
- 
-   - name: Run Tests
-     run: |
-       echo "Running pytest..."
-       pytest --maxfail=1 --disable-warnings -v
- 
-   - name: Train Model
-     run: |
-       echo "Training model..."
-       python train.py
- 
-   - name: Run Streamlit App (Smoke Test)
-     run: |
-       echo "Starting Streamlit app..."
-       nohup streamlit run app.py --server.port 8501 &
-       sleep 10
- 
-   - name: Deploy (Optional)
-     if: success()
+  - name: Install Dependencies
     run: |
-       echo "Deploy step"
-  
+      python -m pip install --upgrade pip
+      pip install -r requirements.txt
+      pip install pytest
+
+  - name: Download NLTK Data
+    run: |
+      python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords')"
+
+  - name: Run Tests
+    run: pytest
+
+  - name: Train Model
+    run: python train.py
+
